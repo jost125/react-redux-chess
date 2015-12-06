@@ -45,6 +45,7 @@ function getPossibleMoves(state, figure, coordinate) {
 	switch (figure.get('type')) {
 		case 'pawn': return getPawnPossibleMoves(state.get('figures'), figure.get('player'), coordinate);
 		case 'knight': return getKnightPossibleMoves(state.get('figures'), figure.get('player'), coordinate);
+		case 'rook': return getRookPossibleMoves(state.get('figures'), figure.get('player'), coordinate);
 	}
 	return new List();
 }
@@ -86,7 +87,7 @@ function getKnightPossibleMoves(figures, figureColor, coordinate) {
 
 	const pushIfPossible = (row, coll) => {
 		const possibleMove = go(coordinate, row, coll);
-		if (isCoordinateOccupiedByColor(possibleMove, figures, enemyColor) || !isCoordinateOccupied(possibleMove, figures)) {
+		if (checkIsPossibleMove(possibleMove, figures, enemyColor)) {
 			moves = moves.push(possibleMove);
 		}
 	};
@@ -101,4 +102,30 @@ function getKnightPossibleMoves(figures, figureColor, coordinate) {
 	pushIfPossible(-2, -1);
 
 	return moves;
+}
+
+function getRookPossibleMoves(figures, figureColor, coordinate) {
+	const enemyColor = getEnemyColor(figureColor);
+
+	let moves = List();
+
+	const pushMovePath = (coordinate, colls, rows) => {
+		const possibleMove = go(coordinate, colls, rows);
+		if (checkIsPossibleMove(possibleMove, figures, enemyColor)) {
+			moves = moves.push(possibleMove);
+			if (!isCoordinateOccupiedByColor(possibleMove, figures, enemyColor)) {
+				pushMovePath(possibleMove, colls, rows);
+			}
+		}
+	};
+	pushMovePath(coordinate, 0, 1);
+	pushMovePath(coordinate, 1, 0);
+	pushMovePath(coordinate, 0, -1);
+	pushMovePath(coordinate, -1, 0);
+
+	return moves;
+}
+
+function checkIsPossibleMove(move, figures, enemyColor) {
+	return move && (isCoordinateOccupiedByColor(move, figures, enemyColor) || !isCoordinateOccupied(move, figures));
 }

@@ -231,6 +231,30 @@ describe('application logic', () => {
 					}));
 				});
 			});
+
+			describe('rook', () => {
+				it('test in the middle of field', () => {
+					const state = fromJS({
+						'figures': {
+							'C3': {type: 'rook', player: 'white', 'id': 'knight-1-white'},
+							'C5': {type: 'pawn', player: 'white', 'id': 'pawn-1-white'},
+							'E3': {type: 'pawn', player: 'black', 'id': 'black-1-white'}
+						},
+						'player': 'white'
+					});
+					const nextState = select(state, 'C3');
+					expect(nextState).to.equal(fromJS({
+						'figures': {
+							'C3': {type: 'rook', player: 'white', 'id': 'knight-1-white'},
+							'C5': {type: 'pawn', player: 'white', 'id': 'pawn-1-white'},
+							'E3': {type: 'pawn', player: 'black', 'id': 'black-1-white'}
+						},
+						'player': 'white',
+						'selected': 'C3',
+						'moves': ['C4', 'D3', 'E3', 'C2', 'C1', 'B3', 'A3']
+					}));
+				});
+			});
 		});
 
 	});
