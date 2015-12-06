@@ -26,7 +26,8 @@ describe('reducer', () => {
 					'B2': {type: 'pawn', player: 'white', 'id': 'pawn-2-white'}
 				},
 				selected: 'A2',
-				player: 'white'
+				player: 'white',
+				moves: ['A3', 'A4']
 			}
 		}));
 	});
