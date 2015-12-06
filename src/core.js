@@ -1,5 +1,6 @@
 import {Map,List} from 'immutable';
 import {
+	go,
 	goUp,
 	goDown,
 	goRight,
@@ -43,14 +44,17 @@ export function setState(state, newState) {
 function getPossibleMoves(state, figure, coordinate) {
 	switch (figure.get('type')) {
 		case 'pawn': return getPawnPossibleMoves(state.get('figures'), figure.get('player'), coordinate);
+		case 'knight': return getKnightPossibleMoves(state.get('figures'), figure.get('player'), coordinate);
 	}
 	return new List();
 }
 
+function getEnemyColor(figureColor) {
+	return figureColor === 'white' ? 'black' : 'white';
+}
+
 function getPawnPossibleMoves(figures, figureColor, coordinate) {
-	const enemyColor = figureColor === 'white'
-		? 'black'
-		: 'white';
+	const enemyColor = getEnemyColor(figureColor);
 	const isStaringPosition = (figureColor === 'white' && coordinate[1] === "2") ||
 		(figureColor === 'black' && coordinate[1] === "7");
 
@@ -71,6 +75,30 @@ function getPawnPossibleMoves(figures, figureColor, coordinate) {
 	if (isCoordinateOccupiedByColor(forwardLeft(coordinate), figures, enemyColor)) {
 		moves = moves.push(forwardLeft(coordinate));
 	}
+
+	return moves;
+}
+
+function getKnightPossibleMoves(figures, figureColor, coordinate) {
+	const enemyColor = getEnemyColor(figureColor);
+
+	let moves = List();
+
+	const pushIfPossible = (row, coll) => {
+		const possibleMove = go(coordinate, row, coll);
+		if (isCoordinateOccupiedByColor(possibleMove, figures, enemyColor) || !isCoordinateOccupied(possibleMove, figures)) {
+			moves = moves.push(possibleMove);
+		}
+	};
+
+	pushIfPossible(1, 2);
+	pushIfPossible(-1, 2);
+	pushIfPossible(1, -2);
+	pushIfPossible(-1, -2);
+	pushIfPossible(2, 1);
+	pushIfPossible(-2, 1);
+	pushIfPossible(2, -1);
+	pushIfPossible(-2, -1);
 
 	return moves;
 }

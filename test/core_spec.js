@@ -208,6 +208,29 @@ describe('application logic', () => {
 				});
 			});
 
+			describe('knight', () => {
+				it('select in the middle of field', () => {
+					const state = fromJS({
+						'figures': {
+							'C3': {type: 'knight', player: 'white', 'id': 'knight-1-white'},
+							'B5': {type: 'pawn', player: 'white', 'id': 'pawn-1-white'},
+							'B1': {type: 'pawn', player: 'black', 'id': 'black-1-white'}
+						},
+						'player': 'white'
+					});
+					const nextState = select(state, 'C3');
+					expect(nextState).to.equal(fromJS({
+						'figures': {
+							'C3': {type: 'knight', player: 'white', 'id': 'knight-1-white'},
+							'B5': {type: 'pawn', player: 'white', 'id': 'pawn-1-white'},
+							'B1': {type: 'pawn', player: 'black', 'id': 'black-1-white'}
+						},
+						'player': 'white',
+						'selected': 'C3',
+						'moves': ['D5', 'D1', 'B1', 'E4', 'A4', 'E2', 'A2']
+					}));
+				});
+			});
 		});
 
 	});
