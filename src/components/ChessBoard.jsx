@@ -23,7 +23,7 @@ export const ChessBoard = React.createClass({
 				<div key={row} className="row">
 					{colls.map((coll) => {
 						let coordinate = coll.toString() + row.toString();
-						return <Field key={coordinate} coordinate={coordinate} move={() => this.props.move(coordinate)}>
+						return <Field key={coordinate} coordinate={coordinate} highlighted={this.isHighlighted(coordinate)} move={() => this.props.move(coordinate)}>
 							{this.renderFigure(coordinate)}
 						</Field>
 					})}
@@ -39,6 +39,9 @@ export const ChessBoard = React.createClass({
 				select={() => this.props.select(coordinate)}
 				coordinate={coordinate}/>
 			: null
+	},
+	isHighlighted: function(coordinate) {
+		return this.props.board.get('moves') && this.props.board.get('moves').contains(coordinate);
 	}
 });
 

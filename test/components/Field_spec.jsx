@@ -13,8 +13,10 @@ describe('Field', () => {
 		);
 
 		const field = scryRenderedDOMComponentsWithClass(component, 'black');
+		const highlighted = scryRenderedDOMComponentsWithClass(component, 'highlighted');
 
 		expect(field.length).to.equal(0);
+		expect(highlighted.length).to.equal(0);
 	});
 
 	it('render black field', () => {
@@ -25,6 +27,16 @@ describe('Field', () => {
 		const field = scryRenderedDOMComponentsWithClass(component, 'black');
 
 		expect(field.length).to.equal(1);
+	});
+
+	it('render highlighted field', () => {
+		const component = renderIntoDocument(
+			<Field coordinate='A1' highlighted={true} />
+		);
+
+		const highlighted = scryRenderedDOMComponentsWithClass(component, 'highlighted');
+
+		expect(highlighted.length).to.equal(1);
 	});
 
 	describe('piece', () => {

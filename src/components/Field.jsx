@@ -9,10 +9,15 @@ export default React.createClass({
 	mixins: [PureRenderMixin],
 	render: function() {
 		return <div
-			className={(this.isCoordinateBlack(this.props.coordinate) ? "black " : "") + "coll"}
+			className={
+				(this.isCoordinateBlack(this.props.coordinate) ? "black " : "") +
+				"coll"
+			}
 			onClick={() => this.props.move(this.props.coordinate)}
 		>
-			{this.props.children}
+			{this.props.highlighted
+				? <div className="highlighted">{this.props.children}</div>
+				: this.props.children}
 		</div>;
 	},
 	isCoordinateBlack: function(coordinate) {
