@@ -1,5 +1,78 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<style>
+		.row {
+			height: 50px;
+			width: 400px;
+		}
+
+		.coll, .black, .figure {
+			height: 50px;
+			width: 50px;
+			float: left;
+		}
+
+		.figure-pawn-white {
+			background: url("pawn-white.svg") center center no-repeat;
+		}
+
+		.figure-rook-white {
+			background: url("rook-white.svg") center center no-repeat;
+		}
+
+		.figure-knight-white {
+			background: url("knight-white.svg") center center no-repeat;
+		}
+
+		.figure-bishop-white {
+			background: url("bishop-white.svg") center center no-repeat;
+		}
+
+		.figure-queen-white {
+			background: url("queen-white.svg") center center no-repeat;
+		}
+
+		.figure-king-white {
+			background: url("king-white.svg") center center no-repeat;
+		}
+
+		.figure-pawn-black {
+			background: url("pawn-black.svg") center center no-repeat;
+		}
+
+		.figure-rook-black {
+			background: url("rook-black.svg") center center no-repeat;
+		}
+
+		.figure-knight-black {
+			background: url("knight-black.svg") center center no-repeat;
+		}
+
+		.figure-bishop-black {
+			background: url("bishop-black.svg") center center no-repeat;
+		}
+
+		.figure-queen-black {
+			background: url("queen-black.svg") center center no-repeat;
+		}
+
+		.figure-king-black {
+			background: url("king-black.svg") center center no-repeat;
+		}
+
+		.black {
+			background-color: gray;
+		}
+
+		.selected {
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			border: 3px solid blue;
+		}
+	</style>
+</head>
 <body>
 	<div id="app"></div>
 	<script src="bundle.js"></script>
